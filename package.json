@@ -1,8 +1,8 @@
 {
-	"name": "@frontline-hq/vite-virtual-mdx",
+	"name": "@frontline-hq/rollup-merge-import",
 	"version": "0.0.1",
-	"description": "A vite plugin to support virtual imports for mdx files",
-	"repository": "git@github.com:frontline-hq/vite-virtual-mdx.git",
+	"description": "A rollup plugin to support virtual imports for mdx files",
+	"repository": "git@github.com:frontline-hq/rollup-merge-import.git",
 	"author": "Benjamin Preiss <benjaminpreiss@protonmail.com>",
 	"license": "MIT",
 	"type": "module",

@@ -1,5 +1,5 @@
 import "./style.css";
-import * as msg from "virtual:mdx";
+import * as msg from "virtual:merge/contents/**/*.mdx";
 import { render, h, type ComponentType } from "preact";
 import lodash from "lodash";
 const { get } = lodash;

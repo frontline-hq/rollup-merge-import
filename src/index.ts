@@ -1,41 +1,38 @@
 import glob from "tiny-glob";
 import path from "path";
 import type { Plugin } from "rollup";
-import mdx from "@mdx-js/rollup";
-import recmaSection from "@frontline-hq/recma-sections";
 
-function getComment(comment: string) {
-	return comment
-		? comment.trim().startsWith("c:")
-			? comment.trim().slice(2)
-			: undefined
-		: undefined;
-}
-
-function viteVirtualMdx({ ext = "mdx" }: { ext?: string } = {}): Plugin {
-	const virtualModuleId = `virtual:${ext}`;
+export default function rollupMergeImport({
+	delimiter = "_",
+}: { delimiter?: string } = {}): Plugin {
+	const virtualModuleId = `virtual:merge`;
 	const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
 	return {
-		name: "vite-virtual-mdx", // required, will show up in warnings and errors
+		name: "rollup-merge-import", // required, will show up in warnings and errors
 		resolveId(id) {
-			if (id === virtualModuleId) {
-				return resolvedVirtualModuleId;
+			if (id.startsWith(virtualModuleId)) {
+				return "\0" + id;
 			}
 			return null;
 		},
 		async load(id) {
-			if (id === resolvedVirtualModuleId) {
+			if (id.startsWith(resolvedVirtualModuleId)) {
+				const pattern = id.replace("\0virtual:merge/", "");
+				const dir = path
+					.dirname(pattern)
+					.split("/")
+					.filter((v) => v)[0];
 				let code = "";
-				for (const file of await glob(`**/contents/**/*.${ext}`, {
+				for (const file of await glob(`**/${pattern}`, {
 					absolute: true,
 				})) {
 					const parsedPath = path.parse(file);
 					const e = parsedPath.dir.split(path.sep);
-					e.splice(0, e.indexOf("contents") + 1);
+					e.splice(0, e.indexOf(dir) + 1);
 					e.push(parsedPath.name);
 					const exportStatement = `export * as ${e.join(
-						"_"
+						delimiter
 					)} from "${file}";`;
 					code += exportStatement;
 				}
@@ -44,16 +41,4 @@ function viteVirtualMdx({ ext = "mdx" }: { ext?: string } = {}): Plugin {
 			return null;
 		},
 	};
-}
-
-export default function setupViteVirtualMdx({
-	ext = "mdx",
-}: { ext?: string } = {}) {
-	return [
-		mdx({
-			jsxImportSource: "preact",
-			recmaPlugins: [[recmaSection, { getComment: getComment }]],
-		}),
-		viteVirtualMdx({ ext }),
-	];
 }
