@@ -1,0 +1,46 @@
+{
+	"name": "@frontline-hq/vite-virtual-mdx",
+	"version": "0.0.1",
+	"description": "A vite plugin to support virtual imports for mdx files",
+	"repository": "git@github.com:frontline-hq/vite-virtual-mdx.git",
+	"author": "Benjamin Preiss <benjaminpreiss@protonmail.com>",
+	"license": "MIT",
+	"type": "module",
+	"private": false,
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build && tsc --build tsconfig.build.json",
+		"preview": "vite preview"
+	},
+	"main": "./dist/index.umd.cjs",
+	"module": "./dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.umd.cjs"
+		}
+	},
+	"types": "./dist/index.d.ts",
+	"devDependencies": {
+		"@frontline-hq/recma-sections": "^1.0.8",
+		"@mdx-js/rollup": "^2.2.1",
+		"@rollup/plugin-typescript": "^11.0.0",
+		"@types/lodash": "^4.14.191",
+		"@types/node": "^18.13.0",
+		"lodash": "^4.17.21",
+		"path": "^0.12.7",
+		"preact": "^10.12.0",
+		"tiny-glob": "^0.2.9",
+		"tslib": "^2.5.0",
+		"typescript": "^4.9.3",
+		"vite": "^4.1.0"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"dependencies": {}
+}
