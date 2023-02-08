@@ -2,6 +2,10 @@
 
 A rollup plugin that enables "merge-importing" all files within a folder that match a certain glob.
 
+## Requirements
+
+An environment where node is installed.
+
 ## Installation
 
 ```bash
