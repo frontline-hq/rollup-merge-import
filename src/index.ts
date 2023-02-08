@@ -1,5 +1,5 @@
 import glob from "tiny-glob";
-import path from "path";
+import path from "node:path";
 import type { Plugin } from "rollup";
 
 export default function rollupMergeImport({

@@ -1,10 +1,10 @@
 // vite.config.js
-import { resolve } from "path";
 import { defineConfig } from "vite";
 import typescript from "@rollup/plugin-typescript";
 import rollupMergeImport from "./src/index";
 import mdx from "@mdx-js/rollup";
 import recmaSection from "@frontline-hq/recma-sections";
+import { resolve } from "node:path";
 
 function getComment(comment: string) {
 	return comment
@@ -22,6 +22,19 @@ export default defineConfig({
 			name: "rollupMergeImport",
 			// the proper extensions will be added
 			fileName: "index",
+		},
+		rollupOptions: {
+			// make sure to externalize deps that shouldn't be bundled
+			// into your library
+			external: ["tiny-glob", "node:path"],
+			output: {
+				// Provide global variables to use in the UMD build
+				// for externalized deps
+				globals: {
+					"tiny-glob": "tiny-glob",
+					"node:path": "node:path",
+				},
+			},
 		},
 	},
 	plugins: [
