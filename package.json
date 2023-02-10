@@ -1,6 +1,6 @@
 {
 	"name": "@frontline-hq/rollup-merge-import",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "A rollup plugin to support virtual imports for mdx files",
 	"repository": "git@github.com:frontline-hq/rollup-merge-import.git",
 	"author": "Benjamin Preiss <benjaminpreiss@protonmail.com>",
