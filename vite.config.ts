@@ -43,6 +43,6 @@ export default defineConfig({
 			jsxImportSource: "preact",
 			recmaPlugins: [[recmaSection, { getComment: getComment }]],
 		}),
-		rollupMergeImport(),
+		rollupMergeImport({ debug: true }),
 	],
 });
