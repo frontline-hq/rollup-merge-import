@@ -55,15 +55,16 @@ export default function rollupMergeImport({
 					const exportStatement = `export * as ${e.join(
 						delimiter
 					)} from "${file}";`;
-					if (debug)
+					if (debug) {
 						console.log(
 							`5.2 - name of export for this file: ${e.join(
 								delimiter
 							)}`
 						);
-					console.log(
-						`5.3 - resulting export statement: ${exportStatement}`
-					);
+						console.log(
+							`5.3 - resulting export statement: ${exportStatement}`
+						);
+					}
 					code += exportStatement;
 				}
 				return code;
